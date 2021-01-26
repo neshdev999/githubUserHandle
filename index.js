@@ -138,10 +138,15 @@ $(window).bind("load", function() {
         .resize(positionFooter)
 });
 
+function clearContent(){
+    $("#githubUsernameInput").val('');
+}
+
 /* Initialize Application */
 $(function(){
 
     console.log('App loaded! Waiting for submit!');
+    clearContent();
     initialDefaultGithubUserHandle();
     watchForm()
     generateFooter();
