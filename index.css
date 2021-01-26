@@ -55,6 +55,8 @@ h2 {
     background-color: antiquewhite;
     background-color: #63BCD0;
     background-color: rgba(102, 188, 207, 0.3);
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 
@@ -66,6 +68,10 @@ h2 {
     }
     h2 {
         font-size: 20px;
+    }
+    .mainHeading {
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 
@@ -114,6 +120,10 @@ form div {
 .entryBox {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: darkblue;
+}
+
+#githubUsernameInput {
+    width: 80%;
 }
 
 
