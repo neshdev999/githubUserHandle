@@ -165,6 +165,10 @@ form div {
     box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6), inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
 
+.submitButtonstyled :focus {
+    outline: lightskyblue solid 4px;
+}
+
 
 /* User Output Section */
 
@@ -188,7 +192,7 @@ form div {
 }
 
 .repoOutputStylesHolder {
-    /* text-align: center; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .repoNameIndicatorStyles {

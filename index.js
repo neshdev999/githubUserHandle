@@ -1,10 +1,10 @@
-function generateDefaultOutputSection(responseJson){
+function generateDefaultOutputSection(responseJson) {
     let repoLength = responseJson.length;
     let outputRepoNameArray = [];
     let outputRepoUrlArray = [];
-    for(let i=0; i<repoLength; i++){
+    for (let i = 0; i < repoLength; i++) {
         outputRepoNameArray.push(responseJson[i].name);
-        outputRepoUrlArray.push(responseJson[i].url);        
+        outputRepoUrlArray.push(responseJson[i].url);
     }
 
     console.log(outputRepoNameArray);
@@ -12,67 +12,37 @@ function generateDefaultOutputSection(responseJson){
 
     $('#outputUserRepo').append(`<div class="userNameTitle">${responseJson[0].owner.login}</div>`);
 
-    for(let j=0; j<outputRepoNameArray.length; j++){
+    for (let j = 0; j < outputRepoNameArray.length; j++) {
         $('#outputUserRepo').append(`<div class="repoOutputStylesHolder"><div><div class="repoNameIndicatorStyles">Repository [${j+1}]</div> <div class="repoName"> ${outputRepoNameArray[j]}</div>
                                           <div class="repoURL"><a href="${outputRepoUrlArray[j]}">${outputRepoUrlArray[j]}</a></div>
                                     </div>`);
     }
 }
 
-function generateSubmitOutputSection(){
-    let repoLength = responseJson.length;
-    let outputRepoNameArray = [];
-    let outputRepoUrlArray = [];
-    for(let i=0; i<repoLength; i++){
-        outputRepoNameArray.push(responseJson[i].name);
-        outputRepoUrlArray.push(responseJson[i].url);        
-    }
-
-    console.log(outputRepoNameArray);
-    console.log(outputRepoUrlArray);
-
-    for(let j=0; j<outputRepoNameArray.length; j++){
-        $('#outputUserRepo').append(`<div class="repoOutputStylesHolder"><div><div class="repoNameIndicatorStyles">Repository [${j+1}]</div> <div class="repoName"> ${outputRepoNameArray[j]}</div>
-                                          <div class="repoURL"><a href="${outputRepoUrlArray[j]}">${outputRepoUrlArray[j]}</a></div>
-                                    </div>`);
-    }
-}
-
-function getRepoList(username, defaultValAvailCheck){
-    let url =  "https://api.github.com/users/" + username + "/repos";
+function getRepoList(username) {
+    let url = "https://api.github.com/users/" + username + "/repos";
     fetch(url)
-    .then(response =>{
-        if(response.status === 200){
-            return response.json();
-        }else if(response.status === 404){
-            throw '🤪No such user found. Not a good github fan?😪Please try again with other username😀🤣';
-        }
-    } 
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 404) {
+                throw '🤪No such user found. Not a good github fan?😪Please try again with other username😀🤣';
+            }
+        })
+        .then(
+            responseJson => {
+                generateDefaultOutputSection(responseJson);
+            }
         )
-    .then(
-        responseJson => {
-            console.log("repo length: ");
-            console.log(responseJson.length);
-            // if(responseJson.status === 'success'){
-                if (defaultValAvailCheck === true) {
-                    generateDefaultOutputSection(responseJson);
-                } else if(defaultValAvailCheck === false){
-                    generateDefaultOutputSection(responseJson);
-                }
-            // }else if(responseJson.status = "error"){
-            //     throw '🤪No such user found. Not a good github fan?😪Please try again with other username😀🤣';
-            // }
-        }        
-    )
-    .catch(error =>{
-        $('#serverErrorReportContainer').css('display','block');
-        $('#serverErrorReportContainer').text(error);
-    });
+        .catch(error => {
+            $('#serverErrorReportContainer').css('display', 'block');
+            $('#serverErrorReportContainer').text(error);
+        });
 }
 
 
-function initialDefaultGithubUserHandle(){
-    getRepoList('neshdev999', true);
+function initialDefaultGithubUserHandle() {
+    getRepoList('neshdev999');
 }
 
 function watchForm() {
@@ -84,7 +54,7 @@ function watchForm() {
         }
 
         // make error report field blank
-        $('#serverErrorReportContainer').css('display','none');
+        $('#serverErrorReportContainer').css('display', 'none');
         $('#serverErrorReportContainer').text("");
 
 
@@ -92,7 +62,7 @@ function watchForm() {
         var userSelectedHandle = $('#githubUsernameInput').val();
 
         /* pass this value to fetching function */
-        getRepoList(userSelectedHandle, false);    
+        getRepoList(userSelectedHandle);
 
     });
 }
@@ -138,12 +108,12 @@ $(window).bind("load", function() {
         .resize(positionFooter)
 });
 
-function clearContent(){
+function clearContent() {
     $("#githubUsernameInput").val('');
 }
 
 /* Initialize Application */
-$(function(){
+$(function() {
 
     console.log('App loaded! Waiting for submit!');
     clearContent();
